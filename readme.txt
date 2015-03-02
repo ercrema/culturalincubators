@@ -11,7 +11,7 @@
    High Perfomance cluster
    ./manuscript -> contain the working and final version of the
    manuscript
-   
+   ./data -> simulation outputs
 
 ** To Do List
 
