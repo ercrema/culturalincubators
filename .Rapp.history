@@ -1,0 +1,1319 @@
+a=main(interactionRadius=1,nAgents=200,innovationRate=0.01,transmissionType="Prestige",nTraits=3,plotSim=TRUE)
+PWSim <- function(g_i,g_j,sigma,k,c,z)#
+               {#
+                   #Set Default Condition as status quo:#
+#
+                   InnovatorRetain=TRUE#
+                   OthersChange=rep(FALSE,k)#
+                   #Compute Payoffs#
+                   innovatorPayoff=rnorm(1,mean=g_i,sd=sigma)#
+                   otherPayoffs=rnorm(k,mean=g_j,sd=sigma) #
+                   #If innovator engage into social learning, and its payoff is smaller than a randomly selected teacher#
+                   # set InnovatorRetain to FALSE#
+                   if ((runif(1)<=z)& (innovatorPayoff<otherPayoffs[sample(k,size=1)]))#
+                      {InnovatorRetain=FALSE}#
+#
+                   #Perspective of the others#
+#
+                       #Define who engages into social learning##
+                       index=which(runif(k)<=z) #define copiers#
+                       if (length(index)>0)#
+                       {#
+                       for (i in 1:length(index))#
+                         {#
+                           #If other selects the innovator and its payoff is lower#
+                           if((sample(c("a",rep("b",k-1)),size=1)=="a") & (otherPayoffs[index[i]]<innovatorPayoff))#
+                             {OthersChange[index[i]]=TRUE}#
+                          }#
+                        }#
+                       index=which(runif(k)<=c)#
+                       if(length(index)>0){OthersChange[index]=TRUE}#
+                   #Is there any "other" that copied the innovator or did the innovator retain it's trait?#
+                   PROB=any(OthersChange)|InnovatorRetain#
+                   return(!PROB)#
+                  }#
+#
+    #Check#
+#
+    g_i=4#
+    g_j=4#
+    sigma=1#
+    k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(2*sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim#
+    #Simulation is always slightly larger, there must be an error
+g_i=5#
+    g_j=4#
+    sigma=1#
+    k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(2*sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim#
+    #Simulation is always slightly larger, there must be an error
+S=0.1#
+      z=0.5#
+      c=0.05#
+      k=99#
+#
+      P1=(1-z)*(1-c)#
+      P2=z * (k-1)/k *(1-c)#
+      P3=z * 1/k * (1-S) * (1-c)#
+      Ploss= P1+P2+P3#
+#
+      P4=(1-z)*c#
+      P5=z * (k-1)/k*c#
+      P6=z * 1/k * (1-S)*c#
+      P7=z * 1/k * S * c#
+      P8=z * 1/k * S * (1-c)#
+      Pretention=P4+P5+P6+P7+P8#
+      print(Ploss+Pretention)
+Pretention
+Ploss
+foo<-function(g_i,g_j,k,sigma,z,c)#
+       {#
+       prob=TRUE #probability of the copier keeping its original trait#
+       innovatorPayoff=rnorm(1,mean=g_i,sd=sigma)#
+       otherPayoffs=rnorm(1,mean=g_j,sd=sigma) #
+       if((runif(1)<z)&(innovatorPayoff>otherPayoffs)&sample(c("a",rep("b",k-1)),size=1)=="a"){prob=FALSE}#
+       if(runif(1)<c){prob=FALSE}#
+       return(prob)#
+       }#
+#
+      z=0.9#
+      c=0.4#
+      k=99#
+      g_i=2#
+      g_j=1#
+      sigma=2#
+      S =  1-pnorm((g_j-g_i)/sqrt(sigma_i ^2+ sigma_j ^2))#
+      print((1-z)*(1-c) + z * (k-1)/k * (1-c) + z * 1/k * (1-S) * (1-c))#
+      nsim=50000#
+      sum(replicate(nsim,foo(g_i=g_i,g_j=g_j,sigma=sigma,k=k,z=z,c=c)))/nsim
+(1-z)*(1-c) + z * (k-1)/k * (1-c) + z * 1/k * (1-S) * (1-c)
+((c-1)*(z*S-k))/k
+(((c-1)*(z*S-k))/k)^k
+PWSim <- function(g_i,g_j,sigma,k,c,z)#
+               {#
+                   #Set Default Condition as status quo:#
+#
+                   InnovatorRetain=TRUE#
+                   OthersChange=rep(FALSE,k)#
+                   #Compute Payoffs#
+                   innovatorPayoff=rnorm(1,mean=g_i,sd=sigma)#
+                   otherPayoffs=rnorm(k,mean=g_j,sd=sigma) #
+                   #If innovator engage into social learning, and its payoff is smaller than a randomly selected teacher#
+                   # set InnovatorRetain to FALSE#
+                   if ((runif(1)<=z)& (innovatorPayoff<otherPayoffs[sample(k,size=1)]))#
+                      {InnovatorRetain=FALSE}#
+#
+                   #Perspective of the others#
+#
+                       #Define who engages into social learning##
+                       index=which(runif(k)<=z) #define copiers#
+                       if (length(index)>0)#
+                       {#
+                       for (i in 1:length(index))#
+                         {#
+                           #If other selects the innovator and its payoff is lower#
+                           if((sample(c("a",rep("b",k-1)),size=1)=="a") & (otherPayoffs[index[i]]<innovatorPayoff))#
+                             {OthersChange[index[i]]=TRUE}#
+                          }#
+                        }#
+                       index=which(runif(k)<=c)#
+                       if(length(index)>0){OthersChange[index]=TRUE}#
+                   #Is there any "other" that copied the innovator or did the innovator retain it's trait?#
+                   PROB=any(OthersChange)|InnovatorRetain#
+                   return(!PROB)#
+                  }#
+#
+    #Check#
+#
+    g_i=5#
+    g_j=4#
+    sigma=1#
+    k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(2*sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim#
+    #Simulation is always slightly larger, there must be an error
+nsim=50000
+sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+k=1
+S =  1-pnorm((g_j-g_i)/sqrt(2*sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k
+P
+nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+P
+g_i=3#
+    g_j=1#
+    sigma_i=2#
+    sigma_j=2#
+#
+    #Random draws#
+    drawsI=rnorm(50000, g_i, sigma_i)#
+    drawsJ=rnorm(50000, g_j, sigma_j)#
+#
+    mean(drawsI-drawsJ) #simulation solution for the mean  of the normal difference distribution#
+    g_i-g_j #analytical solution for the mean  of the normal difference distribution#
+#
+    sd(drawsI-drawsJ) #simulation solution for the sd of the normal difference distribution#
+    sqrt(sigma_i ^2+ sigma_j ^2) #analytical solution for the sd of the normal difference distribution#
+#
+    sum((drawsI-drawsJ)>0)/length(drawsI) #simulation solution of the probability of retention#
+    1-pnorm((g_j-g_i)/sqrt(sigma_i ^2+ sigma_j ^2)) #analytical solution of the probability of retention
+g_i=5#
+    g_j=4#
+    sigma=1#
+    k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(sigm^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k
+g_i=5#
+    g_j=4#
+    sigma=1#
+    k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k
+P
+g_i=5#
+    g_j=4#
+    sigma=1#
+    k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(sigma^2*2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k
+P
+g_i=5#
+    g_j=4#
+    sigma=1#
+    k=200#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k
+P
+k
+nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+k=400
+S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k
+P
+nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+InnovatorRetain=TRUE
+OthersChange=rep(FALSE,k)
+innovatorPayoff=rnorm(1,mean=g_i,sd=sigma)
+innovatorPayoff
+otherPayoffs=rnorm(k,mean=g_j,sd=sigma)
+otherPayoffs
+sample(k,size=1)
+innovatorPayoff<otherPayoffs[sample(k,size=1)])
+innovatorPayoff<otherPayoffs[sample(k,size=1)]
+index=which(runif(k)<=z)
+index
+length(index)
+sample(c("a",rep("b",k-1)),size=1)
+PWSim <- function(g_i,g_j,sigma,k,c,z)#
+               {#
+                   #Set Default Condition as status quo:#
+#
+                   InnovatorRetain=TRUE#
+                   OthersChange=rep(FALSE,k)#
+                   #Compute Payoffs#
+                   innovatorPayoff=rnorm(1,mean=g_i,sd=sigma)#
+                   otherPayoffs=rnorm(k,mean=g_j,sd=sigma) #
+                   #If innovator engage into social learning, and its payoff is smaller than a randomly selected teacher#
+                   # set InnovatorRetain to FALSE#
+                   if ((runif(1)<z)& (innovatorPayoff<otherPayoffs[sample(k,size=1)]))#
+                      {InnovatorRetain=FALSE}#
+#
+                   #Perspective of the others#
+#
+                       #Define who engages into social learning##
+                       index=which(runif(k)<z) #define copiers#
+                       if (length(index)>0)#
+                       {#
+                       for (i in 1:length(index))#
+                         {#
+                           #If other selects the innovator and its payoff is lower#
+                           if(runif(1)<(1/k) & (otherPayoffs[index[i]]<innovatorPayoff))#
+                             {OthersChange[index[i]]=TRUE}#
+                          }#
+                        }#
+                       index=which(runif(k)<c)#
+                       if(length(index)>0){OthersChange[index]=TRUE}#
+                   #Is there any "other" that copied the innovator or did the innovator retain it's trait?#
+                   PROB=any(OthersChange)|InnovatorRetain#
+                   return(!PROB)#
+                  }
+S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+z=0
+P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+P
+sigma=0
+P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+z=1
+S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)#
+    nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+sigma=0.01
+k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)
+z
+sigma
+k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)
+z
+sigma=0.05
+k=50#
+    c=0#
+    z=0.7#
+#
+    S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k#
+    print(P)
+S
+sqrt(sigma^2+sigma^2)
+(g_j-g_i)/sqrt(sigma^2+sigma^2)
+1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))
+S
+S==1
+sigma=0.2
+S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))#
+    P =  z*(1-S) * (((c-1)*(z*S-k))/k)^k
+S
+P
+nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+0.0001
+0.00007
+PWSim <- function(g_i,g_j,sigma,k,c,z)#
+               {#
+                   #Set Default Condition as status quo:#
+#
+                   InnovatorRetain=TRUE#
+                   OthersChange=rep(FALSE,k)#
+                   #Compute Payoffs#
+                   innovatorPayoff=rnorm(1,mean=g_i,sd=sigma)#
+                   otherPayoffs=rnorm(k,mean=g_j,sd=sigma) #
+                   #If innovator engage into social learning, and its payoff is smaller than a randomly selected teacher#
+                   # set InnovatorRetain to FALSE#
+                   if ((runif(1)<=z)& (innovatorPayoff<otherPayoffs[sample(k,size=1)]))#
+                      {InnovatorRetain=FALSE}#
+#
+                   #Perspective of the others#
+#
+                       #Define who engages into social learning##
+                       index=which(runif(k)<=z) #define copiers#
+                       if (length(index)>0)#
+                       {#
+                       for (i in 1:length(index))#
+                         {#
+                           #If other selects the innovator and its payoff is lower#
+                           if((sample(c("a",rep("b",k-1)),size=1)=="a") & (otherPayoffs[index[i]]<innovatorPayoff))#
+                             {OthersChange[index[i]]=TRUE}#
+                          }#
+                        }#
+                       index=which(runif(k)<=c)#
+                       if(length(index)>0){OthersChange[index]=TRUE}#
+                   #Is there any "other" that copied the innovator or did the innovator retain it's trait?#
+                   PROB=any(OthersChange)|InnovatorRetain#
+                   return(!InnovatorRetain)#
+                  }
+z*(1-S)
+sigma=2
+S =  1-pnorm((g_j-g_i)/sqrt(sigma^2+sigma^2))
+z*(1-S)
+nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+(((c-1)*(z*S-k))/k)^k
+PWSim <- function(g_i,g_j,sigma,k,c,z)#
+               {#
+                   #Set Default Condition as status quo:#
+#
+                   InnovatorRetain=TRUE#
+                   OthersChange=rep(FALSE,k)#
+                   #Compute Payoffs#
+                   innovatorPayoff=rnorm(1,mean=g_i,sd=sigma)#
+                   otherPayoffs=rnorm(k,mean=g_j,sd=sigma) #
+                   #If innovator engage into social learning, and its payoff is smaller than a randomly selected teacher#
+                   # set InnovatorRetain to FALSE#
+                   if ((runif(1)<=z)& (innovatorPayoff<otherPayoffs[sample(k,size=1)]))#
+                      {InnovatorRetain=FALSE}#
+#
+                   #Perspective of the others#
+#
+                       #Define who engages into social learning##
+                       index=which(runif(k)<=z) #define copiers#
+                       if (length(index)>0)#
+                       {#
+                       for (i in 1:length(index))#
+                         {#
+                           #If other selects the innovator and its payoff is lower#
+                           if((sample(c("a",rep("b",k-1)),size=1)=="a") & (otherPayoffs[index[i]]<innovatorPayoff))#
+                             {OthersChange[index[i]]=TRUE}#
+                          }#
+                        }#
+                       index=which(runif(k)<=c)#
+                       if(length(index)>0){OthersChange[index]=TRUE}#
+                   #Is there any "other" that copied the innovator or did the innovator retain it's trait?#
+                   PROB=any(OthersChange)|InnovatorRetain#
+                   return(!any(OthersChange))#
+                  }
+nsim=10000#
+    sum(replicate(nsim,PWSim(g_i=g_i,g_j=g_j,k=k,z=z,c=c,sigma=sigma)))/nsim
+g_j=4#
+    sigma=1#
+    k=50#
+    c=0#
+    z=0.7
+setwd('~/Dropbox/SyncBKP/Documents/Imago Mundi/Works in Progress/github/culturalIncubators/culturalincubators/')
+library(tgp)#
+v=c(0,3)#
+b=c(1)#
+z=c(1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("v","b","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,5])#
+save(paramsweep,file="./submitLegion/sweepMod2a.RData")
+install.packages("tgp")
+library(tgp)#
+v=c(0,3)#
+b=c(1)#
+z=c(1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("v","b","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,5])#
+save(paramsweep,file="./submitLegion/sweepMod2a.RData")
+save(paramsweep,file="./submitLegion/sweepMod2a.RData")
+# Sweeping z ##
+v=c(0,3)#
+b=c(1)#
+z=c(0,1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("v","b","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,5])#
+save(paramsweep,file="./submitLegion/sweepMod2a.RData")
+v=c(0,3)#
+b=c(1)#
+z=c(0,1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("v","b","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,5])#
+save(paramsweep,file="./submitLegion/sweepMod2b.RData")
+library(tgp)#
+v=c(0,3)#
+b=c(1)#
+z=c(1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("v","b","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,5])#
+save(paramsweep,file="./submitLegion/sweep1.RData")#
+#
+# Sweeping z ##
+v=c(0,3)#
+b=c(1)#
+z=c(0,1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("v","b","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,5])#
+save(paramsweep,file="./submitLegion/sweep2.RData")
+rm(list=ls())
+randomPoints<-function(N)#
+    {#
+        x<-runif(N)#
+        y<-runif(N)#
+        distMatrix<-as.matrix(dist(cbind(x,y)))#
+        return(distMatrix)#
+    }
+randomPoints (10)
+matrixGenerator<-function(distMatrix,k)#
+    {#
+        Kmatrix<-t(apply(distMatrix,1,function(x,k){#
+        res<-rep(0,length(x))#
+        res[order(x)[1:(k+1)]]=1         #
+        return(res)#
+        },k=k))#
+        diag(Kmatrix)=0#
+        return(Kmatrix)#
+    }
+matrixGenerator (randomPoints(10),2)
+mat=matrixGenerator (randomPoints(10),2)
+mat
+mat[which(mat==0,TRUE)]=NA
+mat
+N=nrow(mat)
+N
+t=1
+mu=0.4
+index=which(runif(N)<mu)#
+                if (innovationType=="beneficial"){Genotype[index]=Genotype[index]+b}
+index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1
+mat[which(mat==0,TRUE)]=NA#
+        N=nrow(mat) #retrieve number of agents#
+        Genotype=rep(0,N) #define initial genotype
+index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1
+Genotype
+payoff<-rnorm(N,mean=Genotype,sd=sigma)
+sigma=2
+payoff<-rnorm(N,mean=Genotype,sd=sigma)
+payoff
+payoffMat<-sweep(mat,MARGIN=2,payoff,`*`)
+payoffMat
+index
+x=1
+mat[x,]==1
+target[which(mat[x,]==1)]
+Genotype[which(mat[x,]==1)]
+mat
+x
+Genotype
+x=6
+mat[6,]
+target[which(mat[x,]==1)]
+x
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+sample(which(mat[x,]==1),size=1,replace=TRUE)
+Genotype
+index
+which(index)
+index<-c(runif(N)<z) #index of agents copying
+z=1
+index<-c(runif(N)<z) #index of agents copying
+index
+which(index)
+x=6
+Genotype
+res=Genotype[x]
+res
+mat[6,]
+which(mat[x,]==1)
+mat
+mat
+x=1
+mat[x,]
+x=2
+mat[x,]
+x
+Genotype[index]<-sapply(which(index),function(x,mat,k,target)#
+                                {#
+                                    if (k==1) {return(Genotype[which(mat[x,]==1)])}#
+                                    if (k>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))}#
+                                },mat=mat,k=k,Genotype=Genotype)
+Genotype
+sapply(which(index),function(x,mat,k,target)#
+                                {#
+                                    if (k==1) {return(Genotype[which(mat[x,]==1)])}#
+                                    if (k>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))}#
+                                },mat=mat,k=k,Genotype=Genotype)
+Genotype[index]<-sapply(which(index),function(x,mat,k,Genotype)#
+                                {#
+                                    if (k==1) {return(Genotype[which(mat[x,]==1)])}#
+                                    if (k>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))}#
+                                },mat=mat,k=k,Genotype=Genotype)
+k-2
+k=2
+sum(mat[1,],na.rm=TRUE)
+Genotype[index]<-sapply(which(index),function(x,mat,k,Genotype)#
+                                {#
+                                    if (k==1) {return(Genotype[which(mat[x,]==1)])}#
+                                    if (k>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))}#
+                                },mat=mat,k=sum(mat[1,],na.rm=TRUE),Genotype=Genotype)
+Genotype
+Genotype
+Genotype[index]<-sapply(which(index),function(x,mat,k,Genotype)#
+                                {#
+                                    if (k==1) {return(Genotype[which(mat[x,]==1)])}#
+                                    if (k>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))}#
+                                },mat=mat,k=sum(mat[1,],na.rm=TRUE),Genotype=Genotype)
+Genotype
+Genotype[index]<-sapply(which(index),function(x,mat,k,Genotype)#
+                                {#
+                                    if (k==1) {return(Genotype[which(mat[x,]==1)])}#
+                                    if (k>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))}#
+                                },mat=mat,k=sum(mat[1,],na.rm=TRUE),Genotype=Genotype)
+Genotype
+index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1
+Genotype[index]<-sapply(which(index),function(x,mat,Genotype,k,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (k==1) {teacher=which(mat[x,]==1)}#
+                                    if (k>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoffVector[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,k=sum(mat[1,],na.rm=TRUE),payoff=payoff)
+index
+mat
+which(index)
+index<-c(runif(N)<z) #index of agents copying
+index
+Genotype[index]<-sapply(which(index),function(x,mat,Genotype,k,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (k==1) {teacher=which(mat[x,]==1)}#
+                                    if (k>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoffVector[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,k=sum(mat[1,],na.rm=TRUE),payoff=payoff)
+Genotype[index]<-sapply(which(index),function(x,mat,Genotype,k,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (k==1) {teacher=which(mat[x,]==1)}#
+                                    if (k>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoff[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,k=sum(mat[1,],na.rm=TRUE),payoff=payoff)
+Genotype[index]<-sapply(which(index),function(x,mat,Genotype,k,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (k==1) {teacher=which(mat[x,]==1)}#
+                                    if (k>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoff[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,k=sum(mat[1,],na.rm=TRUE),payoff=payoff)
+Genotype
+x
+mat
+tmp.index=which(mat[x,]==1)
+tmp.index=which(mat[x,]==1)
+tmp.index
+max(payoff[tmp.index])
+payoff
+payoff[tmp.index]
+payoff[x]
+max(payoff[tmp.index]
+)
+which(payoff==max(payoff[tmp.index])
+)
+which(payoff==max(payoff[tmp.index]))
+tmp.index
+which(payoffMat[x,tmp.index]==max(payoffMat[x,tmp.index]))
+which(payoff==max(payoff[tmp.index]))
+tmp.index[which(payoffMat[x,tmp.index]==max(payoffMat[x,tmp.index]))]
+Genotype[index]=sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    tmp.index=which(mat[x,]==1) #define pool of teachers#
+                                    if (max(payoff[tmp.index])>payoff[x]) #
+                                        {#
+                                            res=Genotype[which(payoff==max(payoff[tmp.index]))]#
+                                        }#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)
+Genotype
+library(tgp)#
+sigma=c(0,3)#
+z=c(1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("sigma","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,4])#
+save(paramsweep,file="./submitLegion/sweep1.RData")#
+#
+# Sweeping z ##
+sigma=c(0,3)#
+z=c(0,1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(v,b,z,mu,k))#
+colnames(paramsweep)<-c("sigma","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,4])#
+save(paramsweep,file="./submitLegion/sweep2.RData")
+# Holding z constant ##
+library(tgp)#
+sigma=c(0,3)#
+z=c(1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(sigma,z,mu,k))#
+colnames(paramsweep)<-c("sigma","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,4])#
+save(paramsweep,file="./submitLegion/sweep1.RData")#
+#
+# Sweeping z ##
+sigma=c(0,3)#
+z=c(0,1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(sigma,z,mu,k))#
+colnames(paramsweep)<-c("sigma","z","mu","k")#
+paramsweep[,5]<-round(paramsweep[,4])#
+save(paramsweep,file="./submitLegion/sweep2.RData")
+# The prepareSweep function #
+# Holding z constant ##
+library(tgp)#
+sigma=c(0,3)#
+z=c(1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(sigma,z,mu,k))#
+colnames(paramsweep)<-c("sigma","z","mu","k")#
+paramsweep[,4]<-round(paramsweep[,4])#
+save(paramsweep,file="./submitLegion/sweep1.RData")#
+#
+# Sweeping z ##
+sigma=c(0,3)#
+z=c(0,1)#
+mu=c(0.005)#
+k=c(1,500)#
+number.sim.per.job=3#
+number.jobs=10000#
+paramsweep<-lhs(number.sim.per.job*number.jobs,rect=rbind(sigma,z,mu,k))#
+colnames(paramsweep)<-c("sigma","z","mu","k")#
+paramsweep[,4]<-round(paramsweep[,4])#
+save(paramsweep,file="./submitLegion/sweep2.RData")
+##################
+# Spatial Model ##
+##################
+#
+# Core Simulation ##
+# mat ... interaction matrix#
+# z ... frequency of cultural transmission#
+# mu ... innovation rate#
+# sigma ... phenotypic variance#
+# timeSteps ... number of timesteps#
+sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("random","weighted","model"))#
+    {#
+        mat[which(mat==0,TRUE)]=NA#
+        N=nrow(mat) #retrieve number of agents#
+        Genotype=rep(0,N) #define initial genotype#
+        if (verbose==TRUE) {pb <- txtProgressBar(min = 1, max = timesteps, style = 3)}#
+#
+        for (t in 1:timeSteps)#
+            {#
+                if (verbose==TRUE) {setTxtProgressBar(pb, t)}        #
+                #Expression##
+                payoff<-rnorm(N,mean=Genotype,sd=sigma)#
+                #Transmission##
+                index<-c(runif(N)<z) #index of agents copying#
+                if (length(index)>0){#
+                    if (mode=="random")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype)#
+                                {#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {return(Genotype[which(mat[x,]==1)])} #Select the other genotype#
+                                    if (sum(mat[1,],na.rm=TRUE)>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))} #Randomly Sample genotype#
+                                },mat=mat,Genotype=Genotype)#
+                        }#
+                    if (mode=="weighted")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {teacher=which(mat[x,]==1)}#
+                                    if (sum(mat[1,],na.rm=TRUE)>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoff[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+                    if (mode=="model")#
+                        {#
+                            Genotype[index]=sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    tmp.index=which(mat[x,]==1) #define pool of teachers#
+                                    if (max(payoff[tmp.index])>payoff[x]) #
+                                        {#
+                                            res=Genotype[which(payoff==max(payoff[tmp.index]))]#
+                                        }#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+#
+                }#
+                #Innovation##
+                index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1#
+#
+                if (verbose==TRUE) {close(pb)}#
+                return(mean(Genotype))#
+            }#
+#### Utility Functions #####
+#
+# Generate Random Points in a Space of 1 x 1 and its distance matrix#
+randomPoints<-function(N)#
+    {#
+        x<-runif(N)#
+        y<-runif(N)#
+        distMatrix<-as.matrix(dist(cbind(x,y)))#
+        return(distMatrix)#
+    }#
+#
+# Generate Neighbour Matrix based on k-nearest agents#
+matrixGenerator<-function(distMatrix,k)#
+    {#
+        Kmatrix<-t(apply(distMatrix,1,function(x,k){#
+        res<-rep(0,length(x))#
+        res[order(x)[1:(k+1)]]=1         #
+        return(res)#
+        },k=k))#
+        diag(Kmatrix)=0#
+        return(Kmatrix)#
+    }
+}
+##################
+# Spatial Model ##
+##################
+#
+# Core Simulation ##
+# mat ... interaction matrix#
+# z ... frequency of cultural transmission#
+# mu ... innovation rate#
+# sigma ... phenotypic variance#
+# timeSteps ... number of timesteps#
+sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("random","weighted","model"))#
+    {#
+        mat[which(mat==0,TRUE)]=NA#
+        N=nrow(mat) #retrieve number of agents#
+        Genotype=rep(0,N) #define initial genotype#
+        if (verbose==TRUE) {pb <- txtProgressBar(min = 1, max = timesteps, style = 3)}#
+#
+        for (t in 1:timeSteps)#
+            {#
+                if (verbose==TRUE) {setTxtProgressBar(pb, t)}        #
+                #Expression##
+                payoff<-rnorm(N,mean=Genotype,sd=sigma)#
+                #Transmission##
+                index<-c(runif(N)<z) #index of agents copying#
+                if (length(index)>0){#
+                    if (mode=="random")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype)#
+                                {#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {return(Genotype[which(mat[x,]==1)])} #Select the other genotype#
+                                    if (sum(mat[1,],na.rm=TRUE)>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))} #Randomly Sample genotype#
+                                },mat=mat,Genotype=Genotype)#
+                        }#
+                    if (mode=="weighted")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {teacher=which(mat[x,]==1)}#
+                                    if (sum(mat[1,],na.rm=TRUE)>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoff[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+                    if (mode=="model")#
+                        {#
+                            Genotype[index]=sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    tmp.index=which(mat[x,]==1) #define pool of teachers#
+                                    if (max(payoff[tmp.index])>payoff[x]) #
+                                        {#
+                                            res=Genotype[which(payoff==max(payoff[tmp.index]))]#
+                                        }#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+#
+                }#
+                #Innovation##
+                index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1#
+            }#
+                if (verbose==TRUE) {close(pb)}#
+                return(mean(Genotype))#
+            }#
+#### Utility Functions #####
+#
+# Generate Random Points in a Space of 1 x 1 and its distance matrix#
+randomPoints<-function(N)#
+    {#
+        x<-runif(N)#
+        y<-runif(N)#
+        distMatrix<-as.matrix(dist(cbind(x,y)))#
+        return(distMatrix)#
+    }#
+#
+# Generate Neighbour Matrix based on k-nearest agents#
+matrixGenerator<-function(distMatrix,k)#
+    {#
+        Kmatrix<-t(apply(distMatrix,1,function(x,k){#
+        res<-rep(0,length(x))#
+        res[order(x)[1:(k+1)]]=1         #
+        return(res)#
+        },k=k))#
+        diag(Kmatrix)=0#
+        return(Kmatrix)#
+    }
+Args=1
+thissweep<-as.data.frame(paramsweep[((Args-1)*number.sim.per.job+1):(Args*number.sim.per.job),])
+thissweep
+thisresults<-numeric() #place holder for containing results
+thisresults
+number.sim.per.job
+for (x in 1:number.sim.per.job)#
+    {#
+print(x)#
+thisresults[x]<-sim(mat=matrixGenerator(randomPoints(1000),k=thissweep$k[x]),#
+                    z=thissweep$z[x],#
+                    mu=thissweep$mu[x],#
+                    sigma=thissweep$sigma[x],#
+                    timeSteps=1000,verbose=TRUE,mode="random")#
+    }
+##################
+# Spatial Model ##
+##################
+#
+# Core Simulation ##
+# mat ... interaction matrix#
+# z ... frequency of cultural transmission#
+# mu ... innovation rate#
+# sigma ... phenotypic variance#
+# timeSteps ... number of timesteps#
+sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("random","weighted","model"))#
+    {#
+        mat[which(mat==0,TRUE)]=NA#
+        N=nrow(mat) #retrieve number of agents#
+        Genotype=rep(0,N) #define initial genotype#
+        if (verbose==TRUE) {pb <- txtProgressBar(min = 1, max = timeSteps, style = 3)}#
+#
+        for (t in 1:timeSteps)#
+            {#
+                if (verbose==TRUE) {setTxtProgressBar(pb, t)}        #
+                #Expression##
+                payoff<-rnorm(N,mean=Genotype,sd=sigma)#
+                #Transmission##
+                index<-c(runif(N)<z) #index of agents copying#
+                if (length(index)>0){#
+                    if (mode=="random")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype)#
+                                {#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {return(Genotype[which(mat[x,]==1)])} #Select the other genotype#
+                                    if (sum(mat[1,],na.rm=TRUE)>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))} #Randomly Sample genotype#
+                                },mat=mat,Genotype=Genotype)#
+                        }#
+                    if (mode=="weighted")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {teacher=which(mat[x,]==1)}#
+                                    if (sum(mat[1,],na.rm=TRUE)>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoff[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+                    if (mode=="model")#
+                        {#
+                            Genotype[index]=sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    tmp.index=which(mat[x,]==1) #define pool of teachers#
+                                    if (max(payoff[tmp.index])>payoff[x]) #
+                                        {#
+                                            res=Genotype[which(payoff==max(payoff[tmp.index]))]#
+                                        }#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+#
+                }#
+                #Innovation##
+                index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1#
+            }#
+                if (verbose==TRUE) {close(pb)}#
+                return(mean(Genotype))#
+            }#
+#### Utility Functions #####
+#
+# Generate Random Points in a Space of 1 x 1 and its distance matrix#
+randomPoints<-function(N)#
+    {#
+        x<-runif(N)#
+        y<-runif(N)#
+        distMatrix<-as.matrix(dist(cbind(x,y)))#
+        return(distMatrix)#
+    }#
+#
+# Generate Neighbour Matrix based on k-nearest agents#
+matrixGenerator<-function(distMatrix,k)#
+    {#
+        Kmatrix<-t(apply(distMatrix,1,function(x,k){#
+        res<-rep(0,length(x))#
+        res[order(x)[1:(k+1)]]=1         #
+        return(res)#
+        },k=k))#
+        diag(Kmatrix)=0#
+        return(Kmatrix)#
+    }
+set.seed(Args)#
+number.sim.per.job = 3#
+#
+#Subset sweep for current run #
+thissweep<-as.data.frame(paramsweep[((Args-1)*number.sim.per.job+1):(Args*number.sim.per.job),])#
+thisresults<-numeric() #place holder for containing results#
+#
+#Simulation loop#
+for (x in 1:number.sim.per.job)#
+    {#
+print(x)#
+thisresults[x]<-sim(mat=matrixGenerator(randomPoints(1000),k=thissweep$k[x]),#
+                    z=thissweep$z[x],#
+                    mu=thissweep$mu[x],#
+                    sigma=thissweep$sigma[x],#
+                    timeSteps=100,verbose=TRUE,mode="random")#
+    }
+thisresults
+thissweep$result=thisresults
+thissweep
+name<-paste("./res",Args,".RData",sep="")
+name
+name<-paste("./res",Args,".csv",sep="")
+write.csv(thissweep,file=name)
+thissweep$result=1:3
+Args=2
+name<-paste("./res",Args,".csv",sep="")
+write.csv(thissweep,file=name)
+thissweep
+thissweep$result=NA
+name<-paste("./res",3,".csv",sep="")
+write.csv(thissweep,file=name)
+?write.csv
+write.csv(thissweep,file=name,col.names = FALSE)
+write.csv(thissweep,file=name,col.names = FALSE)write.csv(thissweep,file=name,col.names = NA)
+write.csv(thissweep,file=name,col.names = NA)
+write.csv(thissweep,file=name,col.names = FALSE)
+colnames(thissweep)<-NA
+thissweep
+write.csv(thissweep,file=name)
+Args=1
+load("/Users/enryu/Dropbox/SyncBKP/Documents/Imago Mundi/Works in Progress/github/culturalIncubators/culturalincubators/submitLegion/sweep1.RData")
+set.seed(Args)#
+number.sim.per.job = 3#
+#
+#Subset sweep for current run #
+thissweep<-as.data.frame(paramsweep[((Args-1)*number.sim.per.job+1):(Args*number.sim.per.job),])#
+thisresults<-numeric() #place holder for containing results#
+#
+#Simulation loop#
+for (x in 1:number.sim.per.job)#
+    {#
+print(x)#
+thisresults[x]<-sim(mat=matrixGenerator(randomPoints(1000),k=thissweep$k[x]),#
+                    z=thissweep$z[x],#
+                    mu=thissweep$mu[x],#
+                    sigma=thissweep$sigma[x],#
+                    timeSteps=100,verbose=TRUE,mode="random")#
+    }#
+#When the computation is done, create the name of the RData as the name of the calling code...#
+thissweep$result=thisresults#
+name<-paste("./res",Args,".csv",sep="")#
+write.csv(thissweep,file=name)
+##################
+# Spatial Model ##
+##################
+#
+# Core Simulation ##
+# mat ... interaction matrix#
+# z ... frequency of cultural transmission#
+# mu ... innovation rate#
+# sigma ... phenotypic variance#
+# timeSteps ... number of timesteps#
+sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("random","weighted","model"))#
+    {#
+        mat[which(mat==0,TRUE)]=NA#
+        N=nrow(mat) #retrieve number of agents#
+        Genotype=rep(0,N) #define initial genotype#
+        if (verbose==TRUE) {pb <- txtProgressBar(min = 1, max = timeSteps, style = 3)}#
+#
+        for (t in 1:timeSteps)#
+            {#
+                if (verbose==TRUE) {setTxtProgressBar(pb, t)}        #
+                #Expression##
+                payoff<-rnorm(N,mean=Genotype,sd=sigma)#
+                #Transmission##
+                index<-c(runif(N)<z) #index of agents copying#
+                if (length(index)>0){#
+                    if (mode=="random")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype)#
+                                {#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {return(Genotype[which(mat[x,]==1)])} #Select the other genotype#
+                                    if (sum(mat[1,],na.rm=TRUE)>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))} #Randomly Sample genotype#
+                                },mat=mat,Genotype=Genotype)#
+                        }#
+                    if (mode=="weighted")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {teacher=which(mat[x,]==1)}#
+                                    if (sum(mat[1,],na.rm=TRUE)>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoff[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+                    if (mode=="model")#
+                        {#
+                            Genotype[index]=sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    tmp.index=which(mat[x,]==1) #define pool of teachers#
+                                    if (max(payoff[tmp.index])>payoff[x]) #
+                                        {#
+                                            res=Genotype[which(payoff==max(payoff[tmp.index]))]#
+                                        }#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+#
+                }#
+                #Innovation##
+                index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1#
+            }#
+                if (verbose==TRUE) {close(pb)}#
+                return(c(mean(Genotype),median(Genotype)))#
+            }#
+#### Utility Functions #####
+#
+# Generate Random Points in a Space of 1 x 1 and its distance matrix#
+randomPoints<-function(N)#
+    {#
+        x<-runif(N)#
+        y<-runif(N)#
+        distMatrix<-as.matrix(dist(cbind(x,y)))#
+        return(distMatrix)#
+    }#
+#
+# Generate Neighbour Matrix based on k-nearest agents#
+matrixGenerator<-function(distMatrix,k)#
+    {#
+        Kmatrix<-t(apply(distMatrix,1,function(x,k){#
+        res<-rep(0,length(x))#
+        res[order(x)[1:(k+1)]]=1         #
+        return(res)#
+        },k=k))#
+        diag(Kmatrix)=0#
+        return(Kmatrix)#
+    }
+##################
+# Spatial Model ##
+##################
+#
+# Core Simulation ##
+# mat ... interaction matrix#
+# z ... frequency of cultural transmission#
+# mu ... innovation rate#
+# sigma ... phenotypic variance#
+# timeSteps ... number of timesteps#
+sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("random","weighted","model"))#
+    {#
+        mat[which(mat==0,TRUE)]=NA#
+        N=nrow(mat) #retrieve number of agents#
+        Genotype=rep(0,N) #define initial genotype#
+        if (verbose==TRUE) {pb <- txtProgressBar(min = 1, max = timeSteps, style = 3)}#
+#
+        for (t in 1:timeSteps)#
+            {#
+                if (verbose==TRUE) {setTxtProgressBar(pb, t)}        #
+                #Expression##
+                payoff<-rnorm(N,mean=Genotype,sd=sigma)#
+                #Transmission##
+                index<-c(runif(N)<z) #index of agents copying#
+                if (length(index)>0){#
+                    if (mode=="random")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype)#
+                                {#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {return(Genotype[which(mat[x,]==1)])} #Select the other genotype#
+                                    if (sum(mat[1,],na.rm=TRUE)>1)  {return(sample(Genotype[which(mat[x,]==1)],size=1,replace=TRUE))} #Randomly Sample genotype#
+                                },mat=mat,Genotype=Genotype)#
+                        }#
+                    if (mode=="weighted")#
+                        {#
+                            Genotype[index]<-sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    #Define Teacher#
+                                    if (sum(mat[1,],na.rm=TRUE)==1) {teacher=which(mat[x,]==1)}#
+                                    if (sum(mat[1,],na.rm=TRUE)>1) {teacher=sample(which(mat[x,]==1),size=1,replace=TRUE)}#
+                                    #Comparison#
+                                    if (payoff[teacher]>payoff[x]){res=Genotype[teacher]}#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+                    if (mode=="model")#
+                        {#
+                            Genotype[index]=sapply(which(index),function(x,mat,Genotype,payoff)#
+                                {#
+                                    res=Genotype[x] #Define default (retaining genotype)#
+                                    tmp.index=which(mat[x,]==1) #define pool of teachers#
+                                    if (max(payoff[tmp.index])>payoff[x]) #
+                                        {#
+                                            res=Genotype[which(payoff==max(payoff[tmp.index]))]#
+                                        }#
+                                    return(res)#
+                                },mat=mat,Genotype=Genotype,payoff=payoff)#
+                        }#
+#
+                }#
+                #Innovation##
+                index=which(runif(N)<mu)#
+                Genotype[index]=Genotype[index]+1#
+            }#
+                if (verbose==TRUE) {close(pb)}#
+                return(c(mean(Genotype),median(Genotype)))#
+            }#
+#### Utility Functions #####
+#
+# Generate Random Points in a Space of 1 x 1 and its distance matrix#
+randomPoints<-function(N)#
+    {#
+        x<-runif(N)#
+        y<-runif(N)#
+        distMatrix<-as.matrix(dist(cbind(x,y)))#
+        return(distMatrix)#
+    }#
+#
+# Generate Neighbour Matrix based on k-nearest agents#
+matrixGenerator<-function(distMatrix,k)#
+    {#
+        Kmatrix<-t(apply(distMatrix,1,function(x,k){#
+        res<-rep(0,length(x))#
+        res[order(x)[1:(k+1)]]=1         #
+        return(res)#
+        },k=k))#
+        diag(Kmatrix)=0#
+        return(Kmatrix)#
+    }
+set.seed(Args)#
+number.sim.per.job = 3#
+#
+#Subset sweep for current run #
+thissweep<-as.data.frame(paramsweep[((Args-1)*number.sim.per.job+1):(Args*number.sim.per.job),])#
+resultMean<-numeric() #place holder for containing results#
+resultMedian<-numeric() #place holder for containing results#
+#
+#Simulation loop#
+for (x in 1:number.sim.per.job)#
+    {#
+print(x)#
+result<-sim(mat=matrixGenerator(randomPoints(1000),k=thissweep$k[x]),#
+            z=thissweep$z[x],mu=thissweep$mu[x],sigma=thissweep$sigma[x],#
+            timeSteps=100,verbose=TRUE,mode="random")#
+resultMean[x]=result[1]#
+resultMedian[x]=result[2]#
+    }
+thissweep$Mean=resultMean#
+thissweep$Median=resultMedian
+thissweep

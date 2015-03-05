@@ -24,7 +24,7 @@
   https://guides.github.com/activities/citable-code/
 * DONE Share Account with Mark
 * TODO Define Experiment 1, part 1 (see exploration 1)
-* TODO Submit Job to Legion (Spatial Model, former experiment 2)
+* DONE Submit Todo Job to Legion (Spatial Model, former experiment 2)
 * TODO Retrieve Job from Legion (Spatial Model, former experiment 2)
 
 
