@@ -16,7 +16,7 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("rando
         mat[which(mat==0,TRUE)]=NA
         N=nrow(mat) #retrieve number of agents
         Genotype=rep(0,N) #define initial genotype
-        if (verbose==TRUE) {pb <- txtProgressBar(min = 1, max = timesteps, style = 3)}
+        if (verbose==TRUE) {pb <- txtProgressBar(min = 1, max = timeSteps, style = 3)}
 
         for (t in 1:timeSteps)
             {
@@ -73,9 +73,9 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("rando
                 #Innovation#
                 index=which(runif(N)<mu)
                 Genotype[index]=Genotype[index]+1
-
+            }
                 if (verbose==TRUE) {close(pb)}
-                return(mean(Genotype))
+                return(c(mean(Genotype),median(Genotype)))
             }
 
 
