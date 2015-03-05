@@ -11,18 +11,19 @@
    High Perfomance cluster
    ./manuscript -> contain the working and final version of the
    manuscript
-   ./data -> simulation outputs
+   ./explorations -> preliminary experiments
 
 ** To Do List
 
-* Organise file structure
-* Write Codes for the New Analtycal Solution for Experiment 1
-* Clean Existing code for Experiment 2
+* DONE Organise file structure
+* DONE Write Codes for the New Analtycal Solution for Experiment 1
+* TODO Clean Existing code for Experiment 2
   This requires the transition from Median to Mean final trait
-* Make the repository citable with DOI
+* TODO Make the repository citable with DOI
   Instuctions can be found on this link:
   https://guides.github.com/activities/citable-code/
-* Share Account with Mark
+* DONE Share Account with Mark
+* TODO Define Experiment 1, part 1 (see exploration 1)
 
 
 
