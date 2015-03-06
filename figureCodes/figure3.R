@@ -59,3 +59,5 @@ box()
 
 #lines(k,predict(fit,mdata.frame(k=k)),col="red",lwd=2)
 }
+#test figure store
+dev.print(device=pdf,"figures/testFigures/fig4.pdf")
