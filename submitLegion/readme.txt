@@ -9,4 +9,6 @@ with model parameters using Latin Hyper Cube Sampling.
 
 * STEP 2: Submit job
 * STEP 3: Concatenate results from Terminal
-awk 'FNR > 1' res*.csv > combinedResults.csv
+#e.g.:
+awk 'FNR > 1' res*.csv > combinedResultsModel1.csv
+awk 'FNR > 1' res*.csv > combinedResultsModel2.csv
