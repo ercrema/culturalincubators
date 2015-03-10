@@ -3,7 +3,7 @@
 # Code for Figure 4 #
 
 #Read Data (preliminary data with slightly less than 30,000 runs each)
-model2<-read.csv("./data/incomplete/combinedResultsModel2.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
+model2<-read.csv("./data/combinedResultsModel2.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
 #random2<-read.csv("./data/incomplete/combinedResultsRandom1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
 #weighted2<-read.csv("./data/incomplete/combinedResultsWeighted1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
 
@@ -29,4 +29,4 @@ for (i in 1:10) {
     }
 
 #test figure store
-dev.print(device=pdf,"figures/testFigures/fig4.pdf")
+dev.print(device=pdf,"./figures/fig4.pdf")
