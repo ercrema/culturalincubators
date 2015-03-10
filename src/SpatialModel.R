@@ -26,7 +26,7 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("rando
                 
                 #Transmission#
                 index<-c(runif(N)<z) #index of agents copying
-                if (length(index)>0){
+                if (any(index)){
                     if (mode=="random")
                         {
                             Genotype[index]<-sapply(which(index),function(x,mat,Genotype)
