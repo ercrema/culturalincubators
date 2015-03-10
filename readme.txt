@@ -17,14 +17,19 @@
 
 * DONE Organise file structure
 * DONE Write Codes for the New Analtycal Solution for Experiment 1
-* TODO Clean Existing code for Experiment 2
+* DONE Clean Existing code for Experiment 2
   This requires the transition from Median to Mean final trait
 * TODO Make the repository citable with DOI
   Instuctions can be found on this link:
   https://guides.github.com/activities/citable-code/
 * DONE Share Account with Mark
-* TODO Define Experiment 1, part 1 (see exploration 1)
+* DONE Define Experiment 1, part 1 (see exploration 1)
 * DONE Submit Todo Job to Legion (Spatial Model, former experiment 2)
-* TODO Retrieve Job from Legion (Spatial Model, former experiment 2)
+* DONE Retrieve Job from Legion (Spatial Model, former experiment 2)
+* TODO Evaluate Model-Biased in experiment 1, with different settings of convergent evolution (c)
+* TODO Rename Payoff Weighted as Random Copying with Evaluation
+* TODO Show map with k, N, and overlap of the sample pool of teachers
+
+
 
 
