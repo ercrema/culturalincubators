@@ -12,3 +12,9 @@ with model parameters using Latin Hyper Cube Sampling.
 #e.g.:
 awk 'FNR > 1' res*.csv > combinedResultsModel1.csv
 awk 'FNR > 1' res*.csv > combinedResultsModel2.csv
+
+awk 'FNR > 1' res*.csv > combinedResultsRandom1.csv
+awk 'FNR > 1' res*.csv > combinedResultsRandom2.csv
+
+awk 'FNR > 1' res*.csv > combinedResultsWeighted1.csv
+awk 'FNR > 1' res*.csv > combinedResultsWeighted2.csv
