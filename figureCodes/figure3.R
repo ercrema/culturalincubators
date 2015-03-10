@@ -3,9 +3,9 @@
 # Code for Figure 3 #
 
 #Read Data (preliminary data with slightly less than 30,000 runs each)
-model1<-read.csv("./data/incomplete/combinedResultsModel1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
-#random1<-read.csv("./data/incomplete/combinedResultsRandom1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
-#weighted1<-read.csv("./data/incomplete/combinedResultsWeighted1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
+model1<-read.csv("./data/combinedResultsModel1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
+random1<-read.csv("./data/combinedResultsRandom1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
+weighted1<-read.csv("./data/combinedResultsWeighted1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
 
 # Define Break points for a 2 x 5 figure
 X<-seq(0,3,length.out=11)
@@ -47,17 +47,17 @@ mtext(side=1,text="k",line=1.3)
 mtext(side=2,text=expression(bar(g)),line=1.5,las=2)
 box()
 
-#scdata=subset(weighted1,sigma>X[x]&sigma<c(X[x+1]))
-#col <- as.numeric(cut(scdata$sigma, quantile(scdata$sigma,prob=seq(0,1,0.1)),labels = 1:10))
-#colours<-adjustcolor(cc(10),alpha.f=1)[col]
-#points(mean~k,pch=20,col=colours,data=scdata)
+scdata=subset(weighted1,sigma>X[x]&sigma<c(X[x+1]))
+col <- as.numeric(cut(scdata$sigma, quantile(scdata$sigma,prob=seq(0,1,0.1)),labels = 1:10))
+colours<-adjustcolor(cc(10),alpha.f=1)[col]
+points(mean~k,pch=20,col=colours,data=scdata)
 
-#srdata=subset(random1,sigma>X[x]&sigma<c(X[x+1]))
-#col <- as.numeric(cut(srdata$sigma, quantile(srdata$sigma,prob=seq(0,1,0.1)),labels = 1:10))
-#colours<-adjustcolor(cr(10),alpha.f=1)[col]
-#points(mean~k,pch=20,col=colours,data=srdata)
+srdata=subset(random1,sigma>X[x]&sigma<c(X[x+1]))
+col <- as.numeric(cut(srdata$sigma, quantile(srdata$sigma,prob=seq(0,1,0.1)),labels = 1:10))
+colours<-adjustcolor(cr(10),alpha.f=1)[col]
+points(mean~k,pch=20,col=colours,data=srdata)
 
 #lines(k,predict(fit,mdata.frame(k=k)),col="red",lwd=2)
 }
 #test figure store
-dev.print(device=pdf,"figures/testFigures/fig3.pdf")
+dev.print(device=pdf,"./figures/fig3.pdf")
