@@ -30,3 +30,4 @@ for (i in 1:10) {
 
 #test figure store
 dev.print(device=pdf,"./figures/fig4.pdf")
+dev.print(device=png,"./figures/fig4.png",width=700,height=350)

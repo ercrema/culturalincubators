@@ -6,6 +6,7 @@ x<-runif(N)
 y<-runif(N)
 distMatrix<-as.matrix(dist(cbind(x,y)))
 neighbours=matrixGenerator(distMatrix=distMatrix,k=k)
+locations<-data.frame(id=1:N,x=x,y=y)
 
 #Define Sample pools
 i=subset(locations,x>0.35&x<0.45&y>0.35&y<0.45)$id[1]
@@ -29,3 +30,4 @@ points(x[pool.j],y[pool.j],pch=20,col=rgb(0,0,1,0.2))
 points(x[shared.pool],y[shared.pool],pch=20,col=rgb(0,1,0,0.2))
 
 dev.print(device=pdf,"./figures/testFigures/figSpatial.pdf")
+dev.print(device=png,"./figures/testFigures/figSpatial.png",width=400,height=400)

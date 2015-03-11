@@ -61,3 +61,4 @@ points(mean~k,pch=20,col=colours,data=srdata)
 }
 #test figure store
 dev.print(device=pdf,"./figures/fig3.pdf")
+dev.print(device=png,"./figures/fig3.png",width=1250,height=500)
