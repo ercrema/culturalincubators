@@ -56,3 +56,4 @@ lines(1:150,CB.Avg3Sigma3.c,lty=2,col="royalblue",lwd=2) #Higher Payoff# (sigma 
 legend("topright",legend=c("Random Copying",expression(paste("Copy if Better (",sigma,"=1)",sep="")),expression(paste("Copy if Better (",sigma,"=3)",sep="")),expression(paste("Copy the Best (",sigma,"=3)",sep="")),expression(paste("Copy the Best (",sigma,"=3)",sep=""))),lty=c(1,1,2,1,2),lwd=2,col=c("black","indianred","indianred","royalblue","royalblue"))
 
 dev.print(device=pdf,"~/github/culturalIncubators/figures/figure1.pdf")
+dev.print(device=png,"~/github/culturalIncubators/figures/figure1.png",width=740,height=400)
