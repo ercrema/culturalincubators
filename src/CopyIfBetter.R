@@ -1,4 +1,4 @@
-# Payoff-Weighted Learning #
+# Copy-if-Better Learning #
 # Model parameters:
 # k ... number of social teachers
 # z ... probability of social learning
@@ -6,7 +6,7 @@
 # gi ... payoff of the innovator
 # gj ... payoff of the others
 
-PW<-function(k,c,z,gi,gj,sigma)
+CiB<-function(k,c,z,gi,gj,sigma)
     {
         #Sample Payoffs
         innovatorPayoff=rnorm(1,mean=gi,sd=sigma)
