@@ -48,6 +48,7 @@ paramsweep[which(paramsweep[,2]==1),2]=0
 paramsweep[which(paramsweep[,2]==2),2]=0.4
 paramsweep[which(paramsweep[,2]==3),2]=1.5
 paramsweep[which(paramsweep[,2]==4),2]=4
+colnames(paramsweep)<-c("N","sigma","k","mu","k")
 
 save(paramsweep,file="./submitLegion/sweep3.RData")
 
