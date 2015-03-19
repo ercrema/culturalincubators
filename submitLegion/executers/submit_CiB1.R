@@ -2,7 +2,7 @@
 #-the source file is a .RData file where all the functions and codes are preloaded
 place<-getwd()
 source("/home/tcrnerc/Scratch/models/incubator/SpatialModel.R") #load ABM
-load("/home/tcrnerc/Scratch/models/incubator/sweep3.RData") #load sweep
+load("/home/tcrnerc/Scratch/models/incubator/sweep1.RData") #load sweep
 setwd(place)#Load Source File
 
 #This allows the definition of arguments (this allows the definition of the random seeds as an input argument)
@@ -19,9 +19,9 @@ resultMedian<-numeric() #place holder for containing results
 for (x in 1:number.sim.per.job)
     {
 print(x)
-result<-sim(mat=matrixGenerator(randomPoints(thissweep$N[x]),k=thissweep$k[x]),
+result<-sim(mat=matrixGenerator(randomPoints(1000),k=thissweep$k[x]),
             z=thissweep$z[x],mu=thissweep$mu[x],sigma=thissweep$sigma[x],
-            timeSteps=1000,verbose=TRUE,mode="random")
+            timeSteps=1000,verbose=TRUE,mode="CopyIfBetter")
 resultMean[x]=result[1]
 resultMedian[x]=result[2]
     }
