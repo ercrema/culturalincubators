@@ -22,12 +22,13 @@ rest=c(1:N)[-c(pool.j,pool.i,shared.pool)]
 
 #plot
 plot(x[rest],y[rest],pch=20,col=rgb(0,0,0,0.05),ylim=c(0,1),xlim=c(0,1),xlab="x",ylab="y")
-points(x[i],y[i],pch=15,col="red")
-points(x[j],y[j],pch=15,col=rgb(0,0,1,1))
+points(x[i],y[i],pch=15,col="red",cex=1.3)
+points(x[j],y[j],pch=15,col=rgb(0,0,1,1),cex=1.3)
 
-points(x[pool.i],y[pool.i],pch=20,col=rgb(1,0,0,0.2))
-points(x[pool.j],y[pool.j],pch=20,col=rgb(0,0,1,0.2))
-points(x[shared.pool],y[shared.pool],pch=20,col=rgb(0,1,0,0.2))
 
-dev.print(device=pdf,"./figures/testFigures/figSpatial.pdf")
-dev.print(device=png,"./figures/testFigures/figSpatial.png",width=400,height=400)
+points(x[pool.i],y[pool.i],pch=20,col=rgb(1,0,0,0.2),cex=1.3)
+points(x[pool.j],y[pool.j],pch=20,col=rgb(0,0,1,0.2),cex=1.3)
+points(x[shared.pool],y[shared.pool],pch=20,col=rgb(0,1,0,0.2),cex=1.3)
+
+dev.print(device=pdf,"./figures/figure2.pdf")
+dev.print(device=png,"./figures/figure2.png",width=350,height=400)
