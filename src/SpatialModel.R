@@ -11,7 +11,7 @@
 # timeSteps ... number of timesteps
 
 
-sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("random","weighted","model"))
+sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("Random","CopyIfBetter","CopyTheBest"))
     {
         mat[which(mat==0,TRUE)]=NA
         N=nrow(mat) #retrieve number of agents
@@ -27,7 +27,7 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("rando
                 #Transmission#
                 index<-c(runif(N)<z) #index of agents copying
                 if (any(index)){
-                    if (mode=="random")
+                    if (mode=="Random")
                         {
                             Genotype[index]<-sapply(which(index),function(x,mat,Genotype)
                                 {
@@ -38,7 +38,7 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("rando
 
 
                     
-                    if (mode=="weighted")
+                    if (mode=="CopyIfBetter")
                         {
                             Genotype[index]<-sapply(which(index),function(x,mat,Genotype,payoff)
                                 {
@@ -54,7 +54,7 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("rando
 
 
                     
-                    if (mode=="model")
+                    if (mode=="CopyTheBest")
                         {
                             Genotype[index]=sapply(which(index),function(x,mat,Genotype,payoff)
                                 {
