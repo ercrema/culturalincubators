@@ -62,7 +62,9 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("Rando
                                     tmp.index=which(mat[x,]==1) #define pool of teachers
                                     if (max(payoff[tmp.index])>payoff[x]) 
                                         {
-                                            res=Genotype[which(payoff==max(payoff[tmp.index]))]
+                                            target=which(payoff==max(payoff[tmp.index]))
+                                            if(length(target)>1){target=sample(target,size=1)}
+                                            res=Genotype[target]
                                         }
                                     return(res)
                                 },mat=mat,Genotype=Genotype,payoff=payoff)
