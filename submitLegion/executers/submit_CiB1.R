@@ -21,7 +21,7 @@ for (x in 1:number.sim.per.job)
 print(x)
 result<-sim(mat=matrixGenerator(randomPoints(1000),k=thissweep$k[x]),
             z=thissweep$z[x],mu=thissweep$mu[x],sigma=thissweep$sigma[x],
-            timeSteps=1000,verbose=TRUE,mode="weighted")
+            timeSteps=1000,verbose=TRUE,mode="CopyIfBetter")
 resultMean[x]=result[1]
 resultMedian[x]=result[2]
     }

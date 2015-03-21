@@ -20,7 +20,7 @@
 #$ -t 1-10000
 
 # 6. Set the name of the job.
-#$ -N inc_weight_2
+#$ -N inc_random_3
 
 # 7. Select the project that this job will run under.
 # Find <your_project_id> by running the command "groups"
@@ -41,6 +41,6 @@ module unload mkl/10.2.5/035
 module load recommended/r
 
 # 10. Run the script. 
-Rscript  /home/tcrnerc/Scratch/models/incubator/submit_weighted2.R $SGE_TASK_ID
+Rscript  /home/tcrnerc/Scratch/models/incubator/submit_random3.R $SGE_TASK_ID
 # 11. Move the file
-mv *.csv $HOME/Scratch/output/incubator/weighted2
+mv *.csv $HOME/Scratch/output/incubator/random3

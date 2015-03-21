@@ -3,9 +3,9 @@
 # Code for Figure 3 #
 
 #Read Data (preliminary data with slightly less than 30,000 runs each)
-model1<-read.csv("./data/combinedResultsModel1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
-random1<-read.csv("./data/combinedResultsRandom1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
-weighted1<-read.csv("./data/combinedResultsWeighted1.csv",col.names=c("id","sigma","z","mu","k","median","mean"))
+model1<-read.csv("./data/combinedResultsModel1.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
+random1<-read.csv("./data/combinedResultsRandom1.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
+weighted1<-read.csv("./data/combinedResultsWeighted1.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
 
 # Define Break points for a 2 x 5 figure
 X<-seq(0,3,length.out=11)
@@ -60,5 +60,5 @@ points(mean~k,pch=20,col=colours,data=srdata)
 #lines(k,predict(fit,mdata.frame(k=k)),col="red",lwd=2)
 }
 #test figure store
-dev.print(device=pdf,"./figures/fig3.pdf")
-dev.print(device=png,"./figures/fig3.png",width=1250,height=500)
+dev.print(device=pdf,"./figures/figure3.pdf")
+dev.print(device=png,"./figures/figure3.png",width=1250,height=500)

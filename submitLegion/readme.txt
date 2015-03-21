@@ -18,3 +18,7 @@ awk 'FNR > 1' res*.csv > combinedResultsRandom2.csv
 
 awk 'FNR > 1' res*.csv > combinedResultsWeighted1.csv
 awk 'FNR > 1' res*.csv > combinedResultsWeighted2.csv
+
+awk 'FNR > 1' res*.csv > combinedResultsModel3.csv
+awk 'FNR > 1' res*.csv > combinedResultsWeighted3.csv
+awk 'FNR > 1' res*.csv > combinedResultsRandom3.csv
