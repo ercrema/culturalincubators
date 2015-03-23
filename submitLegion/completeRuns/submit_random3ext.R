@@ -7,7 +7,9 @@ setwd(place)#Load Source File
 
 #This allows the definition of arguments (this allows the definition of the random seeds as an input argument)
 Args<-as.numeric(commandArgs(TRUE))
-NewArgs=c(3881,3883,4342,4344)
+
+NewArgs=c(482,492,1016,1203,1651,1660,3375,3857,3861,3909,3937,4124,4131,4132,4884,6347,7974,8493,8527,9857)
+
 Args=NewArgs[Args]
 set.seed(Args)
 number.sim.per.job = 3
@@ -23,7 +25,7 @@ for (x in 1:number.sim.per.job)
 print(x)
 result<-sim(mat=matrixGenerator(randomPoints(thissweep$N[x]),k=thissweep$k[x]),
             z=thissweep$z[x],mu=thissweep$mu[x],sigma=thissweep$sigma[x],
-            timeSteps=1000,verbose=TRUE,mode="weighted")
+            timeSteps=1000,verbose=TRUE,mode="random")
 resultMean[x]=result[1]
 resultMedian[x]=result[2]
     }

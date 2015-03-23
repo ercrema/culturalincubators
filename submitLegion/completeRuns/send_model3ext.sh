@@ -7,7 +7,7 @@
 #$ -S /bin/bash
 
 # 2. Request ten minutes of wallclock time (format hours:minutes:seconds).
-#$ -l h_rt=4:30:00
+#$ -l h_rt=2:30:00
 
 # 3. Request 1 gigabyte of RAM.
 #$ -l mem=4G
@@ -17,10 +17,10 @@
 
 # 5. Set up the job array.  In this instance we have requested 10000 tasks
 # numbered 1 to 10000.
-#$ -t 1-4
+#$ -t 1-38
 
 # 6. Set the name of the job.
-#$ -N weightedExt3
+#$ -N model3ext
 
 # 7. Select the project that this job will run under.
 # Find <your_project_id> by running the command "groups"
@@ -41,6 +41,6 @@ module unload mkl/10.2.5/035
 module load recommended/r
 
 # 10. Run the script. 
-Rscript  /home/tcrnerc/Scratch/models/incubator/submit_weighted3ext.R $SGE_TASK_ID
+Rscript  /home/tcrnerc/Scratch/models/incubator/submit_model3ext.R $SGE_TASK_ID
 # 11. Move the file
-mv *.csv $HOME/Scratch/output/incubator/weighted3
+mv *.csv $HOME/Scratch/output/incubator/model3
