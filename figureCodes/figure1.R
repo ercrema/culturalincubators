@@ -1,59 +1,34 @@
-library(utils)
-library(foreach)
-library(doParallel)
-registerDoParallel(cores=4)
-source("~/github/culturalIncubators/src/CopytheBest.R")
-source("~/github/culturalIncubators/src/CopyIfBetter.R")
-source("~/github/culturalIncubators/src/RandomCopying.R")
+source("./src/SpatialModel.R")
 
-## Do not Run but load the .RData file below:
+N=1000
+k=100
+x<-runif(N)
+y<-runif(N)
+distMatrix<-as.matrix(dist(cbind(x,y)))
+neighbours=matrixGenerator(distMatrix=distMatrix,k=k)
+locations<-data.frame(id=1:N,x=x,y=y)
 
-## Model Execution #
-#
-#
-#baseline=RC(k=1:150,c=0,z=1)
-##Copy if Better
-#CiB.Avg3Sigma1=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CiB(k=k,c=0,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CiB.Avg3Sigma3=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CiB(k=k,c=0,gi=3,gj=1,sigma=3,z=1)))/nsim}
-##Copy the Best
-#CB.Avg3Sigma1=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CB(k=k,c=0,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CB.Avg3Sigma3=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CB(k=k,c=0,gi=3,gj=1,sigma=3,z=1)))/nsim}
-#
-#
-## With Innovation #
-#baseline.c=RC(k=1:150,c=0.005,z=1)
-##Copy if Better
-#CiB.Avg3Sigma1.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CiB(k=k,c=0.005,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CiB.Avg3Sigma3.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CiB(k=k,c=0.005,gi=3,gj=1,sigma=3,z=1)))/nsim}
-##Copy the Best
-#CB.Avg3Sigma1.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CB(k=k,c=0.005,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CB.Avg3Sigma3.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(10000,CB(k=k,c=0.005,gi=3,gj=1,sigma=3,z=1)))/nsim}
-#
-#save.image("~/github/culturalIncubators/figureCodes/figure1.RData")
+#Define Sample pools
+i=subset(locations,x>0.35&x<0.45&y>0.35&y<0.45)$id[1]
+j=subset(locations,x>0.45&x<0.65&y>0.40&y<0.60)$id[1]
+
+shared.pool=which(apply(neighbours[c(i,j),],2,sum)==2)
+pool.j=which(neighbours[j,]==1)
+pool.j=pool.j[-which(pool.j%in%shared.pool)]
+pool.i=which(neighbours[i,]==1)
+pool.i=pool.i[-which(pool.i%in%shared.pool)]
+rest=c(1:N)[-c(pool.j,pool.i,shared.pool)]
 
 
-load("~/github/culturalIncubators/figureCodes/figure1.RData")
+#plot
+plot(x[rest],y[rest],pch=20,col=rgb(0,0,0,0.05),ylim=c(0,1),xlim=c(0,1),xlab="x",ylab="y")
+points(x[i],y[i],pch=15,col="red",cex=1.3)
+points(x[j],y[j],pch=15,col=rgb(0,0,1,1),cex=1.3)
 
-#Plot Figure 1#
 
-par(mfrow=c(1,2))
-plot(1:150,baseline,type="l",xlab="k",ylab="P(loss)",ylim=c(0,1),lty=1,lwd=2,main="a") #baseline RC
-#CIB:
-lines(1:150,CiB.Avg3Sigma1,lty=1,col="indianred",lwd=2) #Higher Payoff# (sigma 1, gi=3)
-lines(1:150,CiB.Avg3Sigma3,lty=2,col="indianred",lwd=2) #Higher Payoff and Uncertainty (sigma 3, gj=2)
-#CB 
-lines(1:150,CB.Avg3Sigma1,lty=1,col="royalblue",lwd=2) #Higher Payoff# (sigma 1, gi=3)
-lines(1:150,CB.Avg3Sigma3,lty=2,col="royalblue",lwd=2) #Higher Payoff# (sigma 3, gi=3)
+points(x[pool.i],y[pool.i],pch=20,col=rgb(1,0,0,0.2),cex=1.3)
+points(x[pool.j],y[pool.j],pch=20,col=rgb(0,0,1,0.2),cex=1.3)
+points(x[shared.pool],y[shared.pool],pch=20,col=rgb(0,1,0,0.2),cex=1.3)
 
-plot(1:150,baseline.c,type="l",xlab="k",ylab="P(loss)",ylim=c(0,1),lty=1,lwd=2,main="b") #baseline RC
-#CIB:
-lines(1:150,CiB.Avg3Sigma1.c,lty=1,col="indianred",lwd=2) #Higher Payoff# (sigma 1, gi=3)
-lines(1:150,CiB.Avg3Sigma3.c,lty=2,col="indianred",lwd=2) #Higher Payoff and Uncertainty (sigma 3, gj=2)
-#CB 
-lines(1:150,CB.Avg3Sigma1.c,lty=1,col="royalblue",lwd=2) #Higher Payoff# (sigma 1, gi=3)
-lines(1:150,CB.Avg3Sigma3.c,lty=2,col="royalblue",lwd=2) #Higher Payoff# (sigma 3, gi=3)
-
-legend("topright",legend=c("Random Copying",expression(paste("Copy if Better (",sigma,"=1)",sep="")),expression(paste("Copy if Better (",sigma,"=3)",sep="")),expression(paste("Copy the Best (",sigma,"=3)",sep="")),expression(paste("Copy the Best (",sigma,"=3)",sep=""))),lty=c(1,1,2,1,2),lwd=2,col=c("black","indianred","indianred","royalblue","royalblue"))
-
-dev.print(device=pdf,"~/github/culturalIncubators/figures/figure1.pdf")
-dev.print(device=png,"~/github/culturalIncubators/figures/figure1.png",width=740,height=400)
+dev.print(device=pdf,"./figures/figure1.pdf")
+dev.print(device=png,"./figures/figure1.png",width=350,height=400)
