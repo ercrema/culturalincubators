@@ -1,10 +1,11 @@
 ;-*-Org-*-
 
-
-* Figure 1: Probability of Loss as a function of k for different models of social learning: a) without convergent innovation; b)with convergent innovation (c=0.005). In all cases g_i=3 and g_j=1. Probabilities obtained from 10,000 simulations for each value of k. 
-
-* Figure 2: Schematic illustration of experiment 2. Focal individuals are square-shaped, with their respective pool of social teachers with same color. The green dots represent the shared portion of the pool, whilst the grey dots represent individuals outside the pool (N=1000, k=100).
+* Figure 1: Schematic illustration of experiment 2. Focal individuals are square-shaped, with their respective pool of social teachers with same color. The green dots represent the shared portion of the pool, whilst the grey dots represent individuals outside the pool (N=1000, k=100).
  
+* Figure 2: Probability of Loss as a function of k for different models of social learning: a) without convergent innovation; b)with convergent innovation (c=0.005). In all cases g_i=3 and g_j=1. Probabilities obtained from 10,000 simulations for each value of k. 
+
+
 * Figure 3: Effect of Payoff Uncertainy (sigma) to the rate of evolution (average g after 1000 time-steps) for different models of social learning. 
+
 
 * Figure 4: Effect of census population size (N) to the rate of evolution.  
