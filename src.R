@@ -166,8 +166,8 @@ RC<-function(k,c,z)
 ###############################################
 # Rate of Evolution Models (experiment 2 & 3) #
 ###############################################
-# The function sim() is 
-
+# The function sim() returns the average value of the parameter "g" for given settings of k, mu, and z, and given mode of social learning after timeSteps iterations. 
+# The functions are used in experiment #2 and #3 of the paper.
 
 # Main Function #
 # mat ... interaction matrix (output of the matrixGenerator() function)
@@ -175,7 +175,7 @@ RC<-function(k,c,z)
 # mu ... innovation rate
 # sigma ... payoff uncertainty
 # timeSteps ... number of timesteps
-# mode ... mode of transmission
+# mode ... mode of transmission, either "Random", "CopyIfBetter", or "CopyTheBest"
 # verbose ... if set to TRUE shows a progressbar
 
 
