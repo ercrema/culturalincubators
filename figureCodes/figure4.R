@@ -1,11 +1,11 @@
 
 
-# Code for Figure 3 #
+# Code for Figure 4 #
 
 #Read Data (preliminary data with slightly less than 30,000 runs each)
-model3<-read.csv("./data/combinedResultsModel3.csv",col.names=c("id","N","sigma","k","mu","z","mean","median"))
-random3<-read.csv("./data/combinedResultsRandom3.csv",col.names=c("id","N","sigma","k","mu","z","mean","median"))
-weighted3<-read.csv("./data/combinedResultsWeighted3.csv",col.names=c("id","N","sigma","k","mu","z","mean","median"))
+CTBexp3<-read.csv("./experiments2_3/results/Exp3CopyTheBest.csv",col.names=c("id","N","sigma","k","mu","z","mean","median"))
+#RCexp3<-read.csv("./experiments2_3/results/Exp3Random.csv",col.names=c("id","N","sigma","k","mu","z","mean","median"))
+CIBexp3<-read.csv("./experiments2_3/results/Exp3CopyIfBetter.csv",col.names=c("id","N","sigma","k","mu","z","mean","median"))
 
 
 
@@ -27,26 +27,21 @@ sigmas=c(0,0.4,1.5,4)
 for (x in 1:4)
     {
 # subset data based         
-        cb1000=subset(model3,sigma==sigmas[x]&N==1000)
+        cb1000=subset(CTBexp3,sigma==sigmas[x]&N==1000)
         cb1000Fit<-loess(mean~k,cb1000,)
-        cb2000=subset(model3,sigma==sigmas[x]&N==2000)
+        cb2000=subset(CTBexp3,sigma==sigmas[x]&N==2000)
         cb2000Fit<-loess(mean~k,cb2000)
-        cb4000=subset(model3,sigma==sigmas[x]&N==4000)
+        cb4000=subset(CTBexp3,sigma==sigmas[x]&N==4000)
         cb4000Fit<-loess(mean~k,cb4000)
      
-        cib1000=subset(weighted3,sigma==sigmas[x]&N==1000)
+        cib1000=subset(CIBexp3,sigma==sigmas[x]&N==1000)
         cib1000Fit<-loess(mean~k,cib1000)       
-        cib2000=subset(weighted3,sigma==sigmas[x]&N==2000)
+        cib2000=subset(CIBexp3,sigma==sigmas[x]&N==2000)
         cib2000Fit<-loess(mean~k,cib2000)               
-        cib4000=subset(weighted3,sigma==sigmas[x]&N==4000)        
+        cib4000=subset(CIBexp3,sigma==sigmas[x]&N==4000)        
         cib4000Fit<-loess(mean~k,cib4000)               
 
-        
-        #rc1000=subset(random3,sigma==sigmas[x]&N==1000)
-        #rc2000=subset(random3,sigma==sigmas[x]&N==2000)
-        #rc4000=subset(random3,sigma==sigmas[x]&N==4000) 
-
-        maxY<-max(c(cb1000$mean,cb2000$mean,cb4000$mean,cib1000$mean,cib2000$mean,cib4000$mean,rc1000$mean,rc2000$mean,rc4000$mean))        
+        maxY<-max(c(cb1000$mean,cb2000$mean,cb4000$mean,cib1000$mean,cib2000$mean,cib4000$mean))        
         plot(mean~k,pch=20,col="pink",ylab="",xlab="",data=cb1000,axes=F,ylim=c(0,maxY),main=title[x])
 
         points(mean~k,pch=20,col="red",data=cb2000)
@@ -69,6 +64,4 @@ for (x in 1:4)
 
     }
 
-#test figure store
-dev.print(device=pdf,"./figures/figure4.pdf")
-dev.print(device=png,"./figures/figure4.png",width=550,height=550)
+#dev.print(device=pdf,"./figure4.pdf")

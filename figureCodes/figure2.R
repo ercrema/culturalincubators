@@ -1,45 +1,4 @@
-library(utils)
-library(foreach)
-library(doParallel)
-registerDoParallel(cores=4)
-source("~/github/culturalIncubators/src/CopytheBest.R")
-source("~/github/culturalIncubators/src/CopyIfBetter.R")
-source("~/github/culturalIncubators/src/RandomCopying.R")
-
-## Do not Run but load the .RData file below:
-
-## Model Execution #
-#
-#
-#baseline=RC(k=1:150,c=0,z=1)
-##Copy if Better
-# nsim=10000
-#CiB.Avg3Sigma05=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CiB(k=k,c=0,gi=3,gj=1,sigma=0.5,z=1)))/nsim}
-#CiB.Avg3Sigma1=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CiB(k=k,c=0,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CiB.Avg3Sigma3=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CiB(k=k,c=0,gi=3,gj=1,sigma=3,z=1)))/nsim}
-##Copy the Best
-#CB.Avg3Sigma05=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CB(k=k,c=0,gi=3,gj=1,sigma=0.5,z=1)))/nsim}
-#CB.Avg3Sigma1=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CB(k=k,c=0,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CB.Avg3Sigma3=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CB(k=k,c=0,gi=3,gj=1,sigma=3,z=1)))/nsim}
-#
-#
-## With Innovation #
-#baseline.c=RC(k=1:150,c=0.005,z=1)
-##Copy if Better
-#CiB.Avg3Sigma05.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CiB(k=k,c=0.005,gi=3,gj=1,sigma=0.5,z=1)))/nsim}
-#CiB.Avg3Sigma1.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CiB(k=k,c=0.005,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CiB.Avg3Sigma3.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CiB(k=k,c=0.005,gi=3,gj=1,sigma=3,z=1)))/nsim}
-##Copy the Best
-#CB.Avg3Sigma05.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CB(k=k,c=0.005,gi=3,gj=1,sigma=0.5,z=1)))/nsim}
-#CB.Avg3Sigma1.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CB(k=k,c=0.005,gi=3,gj=1,sigma=1,z=1)))/nsim}
-#CB.Avg3Sigma3.c=foreach(k=1:150,.combine=c) %dopar% {sum(replicate(nsim,CB(k=k,c=0.005,gi=3,gj=1,sigma=3,z=1)))/nsim}
-#
-#save.image("~/github/culturalIncubators/figureCodes/figure2.RData")
-
-
-load("~/github/culturalIncubators/figureCodes/figure2.RData")
-
-#Plot Figure 1#
+load("./experiment1/experiment1.RData")
 
 par(mfrow=c(1,2))
 plot(1:150,baseline,type="l",xlab="k",ylab="P(loss of B)",ylim=c(0,0.8),lty=1,lwd=2,main="a") #baseline RC
@@ -59,6 +18,5 @@ lines(1:150,CB.Avg3Sigma05.c,lty=1,col="royalblue",lwd=2) #Higher Payoff# (sigma
 lines(1:150,CB.Avg3Sigma1.c,lty=2,col="royalblue",lwd=2) #Higher Payoff# (sigma 3, gi=3)
 
 legend("topright",legend=c("Random Copying",expression(paste("Copy if Better (",sigma,"=0.5)",sep="")),expression(paste("Copy if Better (",sigma,"=1)",sep="")),expression(paste("Copy the Best (",sigma,"=0.5)",sep="")),expression(paste("Copy the Best (",sigma,"=1)",sep=""))),lty=c(1,1,2,1,2),lwd=2,col=c("black","indianred","indianred","royalblue","royalblue"))
+#dev.print(device=pdf,"./figure2.pdf")
 
-dev.print(device=pdf,"~/github/culturalIncubators/figures/figure2.pdf")
-dev.print(device=png,"~/github/culturalIncubators/figures/figure2.png",width=740,height=400)

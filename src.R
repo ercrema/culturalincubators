@@ -247,7 +247,7 @@ sim<-function(mat,z=1,mu=0.01,sigma=2,timeSteps=1000,verbose=FALSE,mode=c("Rando
                 Genotype[index]=Genotype[index]+1
             }
         if (verbose==TRUE) {close(pb)}
-        return(mean(Genotype))
+        return(c(mean(Genotype),median(Genotype)))
     }
 
 

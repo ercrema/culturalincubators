@@ -3,9 +3,9 @@
 # Code for Figure 3 #
 
 #Read Data (preliminary data with slightly less than 30,000 runs each)
-model1<-read.csv("./data/combinedResultsModel1.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
-random1<-read.csv("./data/combinedResultsRandom1.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
-weighted1<-read.csv("./data/combinedResultsWeighted1.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
+CTBexp2<-read.csv("./experiments2_3/results/Exp2CopyTheBest.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
+RCexp2<-read.csv("./experiments2_3/results/Exp2Random.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
+CIBexp2<-read.csv("./experiments2_3/results/Exp2CopyIfBetter.csv",col.names=c("id","sigma","z","mu","k","mean","median"))
 
 # Define Break points for a 2 x 5 figure
 X<-seq(0,3,length.out=11)
@@ -37,7 +37,7 @@ title[10]=expression(paste("2.7<",sigma,"<3"))
 for (x in 1:c(length(X)-1))
     {
 # subset data based         
-smdata=subset(model1,sigma>X[x]&sigma<c(X[x+1]))
+smdata=subset(CTBexp2,sigma>X[x]&sigma<c(X[x+1]))
 col <- as.numeric(cut(smdata$sigma, quantile(smdata$sigma,prob=seq(0,1,0.1)),labels = 1:10))
 colours<-adjustcolor(cm(10),alpha.f=1)[col]
 plot(mean~k,pch=20,col=colours,ylab=expression(bar(g)),xlab="k",data=smdata,main=title[x],axes=F)
@@ -47,18 +47,14 @@ mtext(side=1,text="k",line=1.3)
 mtext(side=2,text=expression(bar(g)),line=1.5,las=2)
 box()
 
-scdata=subset(weighted1,sigma>X[x]&sigma<c(X[x+1]))
+scdata=subset(CIBexp2,sigma>X[x]&sigma<c(X[x+1]))
 col <- as.numeric(cut(scdata$sigma, quantile(scdata$sigma,prob=seq(0,1,0.1)),labels = 1:10))
 colours<-adjustcolor(cc(10),alpha.f=1)[col]
 points(mean~k,pch=20,col=colours,data=scdata)
 
-srdata=subset(random1,sigma>X[x]&sigma<c(X[x+1]))
+srdata=subset(RCexp2,sigma>X[x]&sigma<c(X[x+1]))
 col <- as.numeric(cut(srdata$sigma, quantile(srdata$sigma,prob=seq(0,1,0.1)),labels = 1:10))
 colours<-adjustcolor(cr(10),alpha.f=1)[col]
 points(mean~k,pch=20,col=colours,data=srdata)
-
-#lines(k,predict(fit,mdata.frame(k=k)),col="red",lwd=2)
 }
-#test figure store
-dev.print(device=pdf,"./figures/figure3.pdf")
-dev.print(device=png,"./figures/figure3.png",width=1250,height=500)
+#dev.print(device=pdf,"./figure3.pdf")

@@ -1,4 +1,4 @@
-source("./src/SpatialModel.R")
+source("./src.R")
 
 N=1000
 k=100
@@ -29,6 +29,4 @@ points(x[j],y[j],pch=15,col=rgb(0,0,1,1),cex=1.3)
 points(x[pool.i],y[pool.i],pch=20,col=rgb(1,0,0,0.2),cex=1.3)
 points(x[pool.j],y[pool.j],pch=20,col=rgb(0,0,1,0.2),cex=1.3)
 points(x[shared.pool],y[shared.pool],pch=20,col=rgb(0,1,0,0.2),cex=1.3)
-
-dev.print(device=pdf,"./figures/figure1.pdf")
-dev.print(device=png,"./figures/figure1.png",width=350,height=400)
+#dev.print(device=pdf,"./figure1.pdf")
