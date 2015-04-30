@@ -46,7 +46,7 @@ for (x in 1:4)
         #rc2000=subset(random3,sigma==sigmas[x]&N==2000)
         #rc4000=subset(random3,sigma==sigmas[x]&N==4000) 
 
-        maxY<-max(c(cb1000$mean,cb2000$mean,cb4000$mean,cib1000$mean,cib2000$mean,cib4000$mean,rc1000$mean,rc2000$mean,rc4000$mean))        
+        maxY<-max(c(cb1000$mean,cb2000$mean,cb4000$mean,cib1000$mean,cib2000$mean,cib4000$mean))        
         plot(mean~k,pch=20,col="pink",ylab="",xlab="",data=cb1000,axes=F,ylim=c(0,maxY),main=title[x])
 
         points(mean~k,pch=20,col="red",data=cb2000)
@@ -64,7 +64,7 @@ for (x in 1:4)
         box()
         if(x==1)
             legend("right",legend=c("CopyTheBest N=1000","CopyTheBest N=2000","CopyTheBest N=4000",
-                                    "CopyIfBetter N=1000","CopyIfBetter N=1000","CopyIfBetter N=1000"),
+                                    "CopyIfBetter N=1000","CopyIfBetter N=2000","CopyIfBetter N=4000"),
                    fill=c("pink","red","darkred","lightblue","blue","darkblue"))
 
     }
