@@ -1,0 +1,15 @@
+This is a much improved version of the paper, I'm happy to see it accepted. The
+models are perhaps not quite as tightly linked to the literature review as they
+were before, now that the copy-high-payoff-traits (direct bias) has been
+replaced with copy-if-better (more of a context bias, similar to copy-the-best).
+But it's much clearer and neater now.
+Some minor points:
+1. Collard (2013) should be Collard et al. (2013) throughout.
+2. First line: "Social learning is one of the key processes underlying the
+   spread of cultural traits in a living population" - surely it's the only
+   process by which cultural traits spread, by definition.
+3. The 'textbook definition' of social learning from Mesoudi on p.4 ("people
+   preferentially choose among existing traits found in the population without
+   changing those traits") was actually for content/direct biased social
+   learning, not social learning in all its forms. Guided variation (as
+   mentioned later) is another form of social learning that does change traits.
